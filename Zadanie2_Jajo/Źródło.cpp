@@ -1,7 +1,7 @@
 /*************************************************************************************/
 
-//  Szkielet programu do tworzenia modelu sceny 3-D z wizualizacj¹ osi 
-//  uk³adu wspó³rzednych
+//  Szkielet programu do tworzenia modelu sceny 3-D z wizualizacjÄ… osi 
+//  ukÅ‚adu wspÃ³Å‚rzednych
 
 /*************************************************************************************/
 
@@ -23,12 +23,12 @@ int rozmiar;
 
 double u, v;
 
-static GLfloat theta[] = { 0.0, 0.0, 0.0 }; // obroty dla du¿ego jajka
-static GLfloat thetaMale = 0.0; // obrót ma³ego jajka
+static GLfloat theta[] = { 0.0, 0.0, 0.0 }; // obroty dla duÅ¼ego jajka
+static GLfloat thetaMale = 0.0; // obrÃ³t maÅ‚ego jajka
 
-int model = 1; // 1- punkty, 2- siatka, 3 - wype³nione trójk¹ty, dla du¿ego jajka
-int modelMale = 1; // dla ma³ego jajka
-int obrot = 0; // 1 - wokó³ osi X, 2 - wokó³ osi Y, 0 - brak obrotu
+int model = 1; // 1- punkty, 2- siatka, 3 - wypeÅ‚nione trÃ³jkÄ…ty, dla duÅ¼ego jajka
+int modelMale = 1; // dla maÅ‚ego jajka
+int obrot = 0; // 1 - wokÃ³Å‚ osi X, 2 - wokÃ³Å‚ osi Y, 0 - brak obrotu
 
 struct point // zmienna pojedynczego punktu
 {
@@ -105,7 +105,7 @@ void generujKoloryMale()
     }
 }
 
-//funkcja rysujaca du¿e jajko
+//funkcja rysujaca duÅ¼e jajko
 void rysujJajo()
 {
     for (int i = 0; i < rozmiar - 1; i++)
@@ -130,7 +130,7 @@ void rysujJajo()
 
                 glEnd();
             }
-            else if (model == 3) //trójk¹ty
+            else if (model == 3) //trÃ³jkÄ…ty
             {
                 glBegin(GL_TRIANGLES);
                 glColor3f(kolory[i][j].x, kolory[i][j].y, kolory[i][j].z);
@@ -175,7 +175,7 @@ void rysujMaleJajo()
 
                 glEnd();
             }
-            else if (modelMale == 3) //trójk¹ty
+            else if (modelMale == 3) //trÃ³jkÄ…ty
             {
                 glBegin(GL_TRIANGLES);
                 glColor3f(koloryMale[i][j].x, koloryMale[i][j].y, koloryMale[i][j].z);
@@ -195,7 +195,7 @@ void rysujMaleJajo()
     }
 }
 
-//funkcja obrotów
+//funkcja obrotÃ³w
 void spinEgg()
 {
     thetaMale -= 0.5;
@@ -215,26 +215,26 @@ void spinEgg()
     else
     { }
 
-    glutPostRedisplay(); //odœwie¿enie zawartoœci aktualnego okna
+    glutPostRedisplay(); //odÅ›wieÅ¼enie zawartoÅ›ci aktualnego okna
 }
 
 
 
-// Funkcja rysuj¹ca osie uk³adu wspó³rzêdnych
+// Funkcja rysujÄ…ca osie ukÅ‚adu wspÃ³Å‚rzÄ™dnych
 void Axes(void)
 {
 
     point3  x_min = { -5.0, 0.0, 0.0 };
     point3  x_max = { 5.0, 0.0, 0.0 };
-    // pocz¹tek i koniec obrazu osi x
+    // poczÄ…tek i koniec obrazu osi x
 
     point3  y_min = { 0.0, -5.0, 0.0 };
     point3  y_max = { 0.0,  5.0, 0.0 };
-    // pocz¹tek i koniec obrazu osi y
+    // poczÄ…tek i koniec obrazu osi y
 
     point3  z_min = { 0.0, 0.0, -5.0 };
     point3  z_max = { 0.0, 0.0,  5.0 };
-    //  pocz¹tek i koniec obrazu osi y
+    //  poczÄ…tek i koniec obrazu osi y
     glColor3f(1.0f, 0.0f, 0.0f);  // kolor rysowania osi - czerwony
     glBegin(GL_LINES); // rysowanie osi x
     glVertex3fv(x_min);
@@ -259,8 +259,8 @@ void Axes(void)
 
 /*************************************************************************************/
 
-// Funkcja okreœlaj¹ca co ma byæ rysowane (zawsze wywo³ywana gdy trzeba
-// przerysowaæ scenê)
+// Funkcja okreÅ›lajÄ…ca co ma byÄ‡ rysowane (zawsze wywoÅ‚ywana gdy trzeba
+// przerysowaÄ‡ scenÄ™)
 
 
 
@@ -268,14 +268,14 @@ void RenderScene(void)
 {
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // Czyszczenie okna aktualnym kolorem czyszcz¹cym
+    // Czyszczenie okna aktualnym kolorem czyszczÄ…cym
 
     glLoadIdentity();
-    // Czyszczenie macierzy bie¿¹cej
+    // Czyszczenie macierzy bieÅ¼Ä…cej
     Axes();
-    // Narysowanie osi przy pomocy funkcji zdefiniowanej wy¿ej
+    // Narysowanie osi przy pomocy funkcji zdefiniowanej wyÅ¼ej
 
-    glColor3f(1.0f, 1.0f, 1.0f); // Ustawienie koloru rysowania na bia³y
+    glColor3f(1.0f, 1.0f, 1.0f); // Ustawienie koloru rysowania na biaÅ‚y
 
     
     glRotatef(theta[0], 1.0, 0.0, 0.0);
@@ -286,31 +286,31 @@ void RenderScene(void)
 
     rysujJajo();
     
-    glPushMatrix(); // du¿e jajko pomijane przy obracaniu ma³ego
+    glPushMatrix(); // duÅ¼e jajko pomijane przy obracaniu maÅ‚ego
 
     glRotatef(thetaMale, 0.0, 1.0, 0.0);
 
     rysujMaleJajo();
 
     glFlush();
-    // Przekazanie poleceñ rysuj¹cych do wykonania
+    // Przekazanie poleceÅ„ rysujÄ…cych do wykonania
 
     glutSwapBuffers();
 }
 
 void keys(unsigned char key, int x, int y)
 {
-    //sk³adowe du¿ego jajka
+    //skÅ‚adowe duÅ¼ego jajka
     if (key == 'p') model = 1;
     if (key == 'l') model = 2;
     if (key == 't') model = 3;
 
-    //sk³adowe ma³ego jajka
+    //skÅ‚adowe maÅ‚ego jajka
     if (key == 'q') modelMale = 1;
     if (key == 'w') modelMale = 2;
     if (key == 'e') modelMale = 3;
 
-    //obroty du¿ego jajka
+    //obroty duÅ¼ego jajka
     if (key == '1') obrot = 1;
     if (key == '2') obrot = 2;
     if (key == '0') obrot = 0;
@@ -320,7 +320,7 @@ void keys(unsigned char key, int x, int y)
 
 /*************************************************************************************/
 
-// Funkcja ustalaj¹ca stan renderowania
+// Funkcja ustalajÄ…ca stan renderowania
 
 
 
@@ -328,16 +328,16 @@ void MyInit(void)
 {
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    // Kolor czyszc¹cy (wype³nienia okna) ustawiono na czarny
+    // Kolor czyszcÄ…cy (wypeÅ‚nienia okna) ustawiono na czarny
 
 }
 
 /*************************************************************************************/
 
-// Funkcja ma za zadanie utrzymanie sta³ych proporcji rysowanych
-// w przypadku zmiany rozmiarów okna.
-// Parametry vertical i horizontal (wysokoœæ i szerokoœæ okna) s¹
-// przekazywane do funkcji za ka¿dym razem gdy zmieni siê rozmiar okna.
+// Funkcja ma za zadanie utrzymanie staÅ‚ych proporcji rysowanych
+// w przypadku zmiany rozmiarÃ³w okna.
+// Parametry vertical i horizontal (wysokoÅ›Ä‡ i szerokoÅ›Ä‡ okna) sÄ…
+// przekazywane do funkcji za kaÅ¼dym razem gdy zmieni siÄ™ rozmiar okna.
 
 
 
@@ -345,23 +345,23 @@ void ChangeSize(GLsizei horizontal, GLsizei vertical)
 {
 
     GLfloat AspectRatio;
-    // Deklaracja zmiennej AspectRatio  okreœlaj¹cej proporcjê
-    // wymiarów okna 
+    // Deklaracja zmiennej AspectRatio  okreÅ›lajÄ…cej proporcjÄ™
+    // wymiarÃ³w okna 
     if (vertical == 0)  // Zabezpieczenie przed dzieleniem przez 0
         vertical = 1;
     glViewport(0, 0, horizontal, vertical);
-    // Ustawienie wielkoœciokna okna widoku (viewport)
+    // Ustawienie wielkoÅ›ciokna okna widoku (viewport)
     // W tym przypadku od (0,0) do (horizontal, vertical)  
     glMatrixMode(GL_PROJECTION);
-    // Prze³¹czenie macierzy bie¿¹cej na macierz projekcji 
+    // PrzeÅ‚Ä…czenie macierzy bieÅ¼Ä…cej na macierz projekcji 
     glLoadIdentity();
-    // Czyszcznie macierzy bie¿¹cej            
+    // Czyszcznie macierzy bieÅ¼Ä…cej            
     AspectRatio = (GLfloat)horizontal / (GLfloat)vertical;
-    // Wyznaczenie wspó³czynnika  proporcji okna
-    // Gdy okno nie jest kwadratem wymagane jest okreœlenie tak zwanej
-    // przestrzeni ograniczaj¹cej pozwalaj¹cej zachowaæ w³aœciwe
+    // Wyznaczenie wspÃ³Å‚czynnika  proporcji okna
+    // Gdy okno nie jest kwadratem wymagane jest okreÅ›lenie tak zwanej
+    // przestrzeni ograniczajÄ…cej pozwalajÄ…cej zachowaÄ‡ wÅ‚aÅ›ciwe
     // proporcje rysowanego obiektu.
-    // Do okreslenia przestrzeni ograniczj¹cej s³u¿y funkcja
+    // Do okreslenia przestrzeni ograniczjÄ…cej sÅ‚uÅ¼y funkcja
     // glOrtho(...)            
     if (horizontal <= vertical)
 
@@ -370,15 +370,15 @@ void ChangeSize(GLsizei horizontal, GLsizei vertical)
 
         glOrtho(-7.5 * AspectRatio, 7.5 * AspectRatio, -7.5, 7.5, 10.0, -10.0);
     glMatrixMode(GL_MODELVIEW);
-    // Prze³¹czenie macierzy bie¿¹cej na macierz widoku modelu                                   
+    // PrzeÅ‚Ä…czenie macierzy bieÅ¼Ä…cej na macierz widoku modelu                                   
 
     glLoadIdentity();
-    // Czyszcenie macierzy bie¿¹cej
+    // Czyszcenie macierzy bieÅ¼Ä…cej
 }
 
 /*************************************************************************************/
 
-// G³ówny punkt wejœcia programu. Program dzia³a w trybie konsoli
+// GÅ‚Ã³wny punkt wejÅ›cia programu. Program dziaÅ‚a w trybie konsoli
 
 
 
@@ -386,24 +386,24 @@ int main(void)
 {
     setlocale(LC_CTYPE, "Polish");
     //instrukcja przypisanych klawiszy
-    std::cout << "Du¿e jajko:" << std::endl;
-    std::cout << "  Wype³nienie:" << std::endl;
+    std::cout << "DuÅ¼e jajko:" << std::endl;
+    std::cout << "  WypeÅ‚nienie:" << std::endl;
     std::cout << "      P - punkty" << std::endl;
     std::cout << "      L - linie" << std::endl;
-    std::cout << "      T - trójk¹ty" << std::endl;
+    std::cout << "      T - trÃ³jkÄ…ty" << std::endl;
     std::cout << "  Obroty:" << std::endl;
-    std::cout << "      1 - wokó³ osi X" << std::endl;
-    std::cout << "      2 - wokó³ osi Y" << std::endl;
-    std::cout << "      0 - nie obraca siê" << std::endl;
-    std::cout << "Ma³e jajko:" << std::endl;
-    std::cout << "  Wype³nienie:" << std::endl;
+    std::cout << "      1 - wokÃ³Å‚ osi X" << std::endl;
+    std::cout << "      2 - wokÃ³Å‚ osi Y" << std::endl;
+    std::cout << "      0 - nie obraca siÄ™" << std::endl;
+    std::cout << "MaÅ‚e jajko:" << std::endl;
+    std::cout << "  WypeÅ‚nienie:" << std::endl;
     std::cout << "      Q - punkty" << std::endl;
     std::cout << "      W - linie" << std::endl;
-    std::cout << "      E - trójk¹ty" << std::endl;
+    std::cout << "      E - trÃ³jkÄ…ty" << std::endl;
     std::cout << std::endl;
 
 
-    std::cout << "Podaj liczbê punktów chmury: ";
+    std::cout << "Podaj liczbÄ™ punktÃ³w chmury: ";
     int n;
     std::cin >> n;
     rozmiar = (int)sqrt(n);
@@ -422,17 +422,17 @@ int main(void)
     glutCreateWindow("Jajo male i duze");
 
     glutDisplayFunc(RenderScene);
-    // Okreœlenie, ¿e funkcja RenderScene bêdzie funkcj¹ zwrotn¹
-    // (callback function).  Bedzie ona wywo³ywana za ka¿dym razem
+    // OkreÅ›lenie, Å¼e funkcja RenderScene bÄ™dzie funkcjÄ… zwrotnÄ…
+    // (callback function).  Bedzie ona wywoÅ‚ywana za kaÅ¼dym razem
     // gdy zajdzie potrzba przeryswania okna 
     glutReshapeFunc(ChangeSize);
-    // Dla aktualnego okna ustala funkcjê zwrotn¹ odpowiedzialn¹
+    // Dla aktualnego okna ustala funkcjÄ™ zwrotnÄ… odpowiedzialnÄ…
     // zazmiany rozmiaru okna      
     MyInit();
-    // Funkcja MyInit() (zdefiniowana powy¿ej) wykonuje wszelkie
-    // inicjalizacje konieczne  przed przyst¹pieniem do renderowania
+    // Funkcja MyInit() (zdefiniowana powyÅ¼ej) wykonuje wszelkie
+    // inicjalizacje konieczne  przed przystÄ…pieniem do renderowania
     glEnable(GL_DEPTH_TEST);
-    // W³¹czenie mechanizmu usuwania powierzchni niewidocznych
+    // WÅ‚Ä…czenie mechanizmu usuwania powierzchni niewidocznych
 
     glutKeyboardFunc(keys);
 
