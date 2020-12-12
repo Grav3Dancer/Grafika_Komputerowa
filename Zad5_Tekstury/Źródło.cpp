@@ -1,4 +1,4 @@
-// Copyright[2020] <Micha³ Skrok>
+// Copyright[2020] <MichaÂ³ Skrok>
 #define _CRT_SECURE_NO_DEPRECATE
 #include <windows.h>
 #include <stdlib.h>
@@ -13,7 +13,7 @@
 
 
 typedef float point3[3];
-typedef float point2[2];  // do podzia³u tekstury
+typedef float point2[2];  // do podziaÂ³u tekstury
 
 int rozmiar;
 int kolor = 0;  // 0-biale, 1-czerwone, 2-zielone, 3-niebieskie
@@ -21,9 +21,9 @@ int kolor2 = 0;  // 0-biale, 1-czerwone, 2-zielone, 3-niebieskie
 
 double u, v;
 
-static GLfloat theta[] = { 0.0, 0.0, 0.0 };  // obroty dla du¿ego jajka
+static GLfloat theta[] = { 0.0, 0.0, 0.0 };  // obroty dla duÂ¿ego jajka
 
-int obrot = 0;  // 1 - wokó³ osi X, 2 - wokó³ osi Y, 0 - brak obrotu
+int obrot = 0;  // 1 - wokÃ³Â³ osi X, 2 - wokÃ³Â³ osi Y, 0 - brak obrotu
 
 // swiatla
 GLfloat light_1_pos[] = { 0.0, 0.0, 0.0, 1.0 };
@@ -68,7 +68,7 @@ int tryb = 0;
 GLbyte* LoadTGAImage(const char* FileName, GLint* ImWidth,
     GLint* ImHeight, GLint* ImComponents, GLenum* ImFormat) {
 
-    // Struktura dla nag³ówka pliku  TGA
+    // Struktura dla nagÂ³Ã³wka pliku  TGA
 
 #pragma pack(1)
     typedef struct {
@@ -93,7 +93,7 @@ GLbyte* LoadTGAImage(const char* FileName, GLint* ImWidth,
     short sDepth;  // NOLINT
     GLbyte* pbitsperpixel = NULL;
 
-    // Wartoœci domyœlne zwracane w przypadku b³êdu
+    // WartoÅ“ci domyÅ“lne zwracane w przypadku bÂ³Ãªdu
 
     *ImWidth = 0;
     *ImHeight = 0;
@@ -105,20 +105,20 @@ GLbyte* LoadTGAImage(const char* FileName, GLint* ImWidth,
         return NULL;
 
     /*********************/
-    // Przeczytanie nag³ówka pliku
+    // Przeczytanie nagÂ³Ã³wka pliku
 
     fread(&tgaHeader, sizeof(TGAHEADER), 1, pFile);
 
     /*********************/
 
-    // Odczytanie szerokoœci, wysokoœci i g³êbi obrazu
+    // Odczytanie szerokoÅ“ci, wysokoÅ“ci i gÂ³Ãªbi obrazu
 
     *ImWidth = tgaHeader.width;
     *ImHeight = tgaHeader.height;
     sDepth = tgaHeader.bitsperpixel / 8;
 
     /***************************/
-    // Sprawdzenie, czy g³êbia spe³nia za³o¿one warunki (8, 24, lub 32 bity)
+    // Sprawdzenie, czy gÂ³Ãªbia speÂ³nia zaÂ³oÂ¿one warunki (8, 24, lub 32 bity)
 
     if (tgaHeader.bitsperpixel != 8 && tgaHeader.bitsperpixel != 24 &&
         tgaHeader.bitsperpixel != 32)
@@ -126,13 +126,13 @@ GLbyte* LoadTGAImage(const char* FileName, GLint* ImWidth,
 
     /***************************/
 
-    // Obliczenie rozmiaru bufora w pamiêci
+    // Obliczenie rozmiaru bufora w pamiÃªci
 
     lImageSize = tgaHeader.width * tgaHeader.height * sDepth;
 
     /***************************/
 
-    // Alokacja pamiêci dla danych obrazu
+    // Alokacja pamiÃªci dla danych obrazu
 
     pbitsperpixel = reinterpret_cast<GLbyte*>
         (malloc(lImageSize * sizeof(GLbyte)));
@@ -235,7 +235,7 @@ void generujTabliceJajo() {
 }
 
 
-// funkcja rysujaca du¿e jajko
+// funkcja rysujaca duÂ¿e jajko
 void rysujJajo() {
     for (int i = 0; i < rozmiar - 1; i++) {
         for (int j = 0; j < rozmiar - 1; j++) {
@@ -272,7 +272,7 @@ void rysujJajo() {
 }
 
 
-// funkcja obrotów
+// funkcja obrotÃ³w
 void spinEgg() {
     czas1 = time(0);
     if ((czas1 - czas2 != 0) && tryb == 0) {  // zmiana co sekunde
@@ -363,24 +363,24 @@ void spinEgg() {
 
 
 
-    glutPostRedisplay();  // odœwie¿enie zawartoœci aktualnego okna
+    glutPostRedisplay();  // odÅ“wieÂ¿enie zawartoÅ“ci aktualnego okna
 }
 
 
 
-// Funkcja rysuj¹ca osie uk³adu wspó³rzêdnych
+// Funkcja rysujÂ¹ca osie ukÂ³adu wspÃ³Â³rzÃªdnych
 void Axes(void) {
     point3  x_min = { -5.0, 0.0, 0.0 };
     point3  x_max = { 5.0, 0.0, 0.0 };
-    // pocz¹tek i koniec obrazu osi x
+    // poczÂ¹tek i koniec obrazu osi x
 
     point3  y_min = { 0.0, -5.0, 0.0 };
     point3  y_max = { 0.0,  5.0, 0.0 };
-    // pocz¹tek i koniec obrazu osi y
+    // poczÂ¹tek i koniec obrazu osi y
 
     point3  z_min = { 0.0, 0.0, -5.0 };
     point3  z_max = { 0.0, 0.0,  5.0 };
-    //  pocz¹tek i koniec obrazu osi y
+    //  poczÂ¹tek i koniec obrazu osi y
     glColor3f(1.0f, 0.0f, 0.0f);  // kolor rysowania osi - czerwony
     glBegin(GL_LINES);  // rysowanie osi x
     glVertex3fv(x_min);
@@ -404,16 +404,16 @@ void Axes(void) {
 
 /*****************************/
 
-// Funkcja okreœlaj¹ca co ma byæ rysowane (zawsze wywo³ywana gdy trzeba
-// przerysowaæ scenê)
+// Funkcja okreÅ“lajÂ¹ca co ma byÃ¦ rysowane (zawsze wywoÂ³ywana gdy trzeba
+// przerysowaÃ¦ scenÃª)
 
 
 void RenderScene(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // Czyszczenie okna aktualnym kolorem czyszcz¹cym
+    // Czyszczenie okna aktualnym kolorem czyszczÂ¹cym
 
     glLoadIdentity();
-    // Czyszczenie macierzy bie¿¹cej
+    // Czyszczenie macierzy bieÂ¿Â¹cej
 
     gluLookAt(0, 0, -10.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0);
 
@@ -436,9 +436,9 @@ void RenderScene(void) {
     glLightfv(GL_LIGHT1, GL_POSITION, light_2_pos);
 
     Axes();
-    // Narysowanie osi przy pomocy funkcji zdefiniowanej wy¿ej
+    // Narysowanie osi przy pomocy funkcji zdefiniowanej wyÂ¿ej
 
-    glColor3f(1.0f, 1.0f, 1.0f);  // Ustawienie koloru rysowania na bia³y
+    glColor3f(1.0f, 1.0f, 1.0f);  // Ustawienie koloru rysowania na biaÂ³y
 
     glRotatef(theta[0], 1.0, 0.0, 0.0);
 
@@ -449,13 +449,13 @@ void RenderScene(void) {
     rysujJajo();
 
     glFlush();
-    // Przekazanie poleceñ rysuj¹cych do wykonania
+    // Przekazanie poleceÃ± rysujÂ¹cych do wykonania
 
     glutSwapBuffers();
 }
 
 void keys(unsigned char key, int x, int y) {
-    // obroty du¿ego jajka
+    // obroty duÂ¿ego jajka
     if (key == '1') obrot = 1;
     if (key == '2') obrot = 2;
     if (key == '0') obrot = 0;
@@ -492,35 +492,35 @@ void Motion(GLsizei x, GLsizei y) {
 // light1-sterowane myszka, 2-krazace dookola, 3-stojace w miejscu (biale)
 void MyInit(void) {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    // Kolor czyszc¹cy (wype³nienia okna) ustawiono na czarny
+    // Kolor czyszcÂ¹cy (wypeÂ³nienia okna) ustawiono na czarny
 
     czas2 = time(0);
 
-    // Definicja materia³u
+    // Definicja materiaÂ³u
     GLfloat mat_ambient[] = { 1.0, 1.0, 1.0, 1.0 };
-    // wspó³czynniki ka =[kar,kag,kab] dla œwiat³a otoczenia
+    // wspÃ³Â³czynniki ka =[kar,kag,kab] dla Å“wiatÂ³a otoczenia
 
     GLfloat mat_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-    // wspó³czynniki kd =[kdr,kdg,kdb] œwiat³a rozproszonego
+    // wspÃ³Â³czynniki kd =[kdr,kdg,kdb] Å“wiatÂ³a rozproszonego
 
     GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    // wspó³czynniki ks =[ksr,ksg,ksb] dla œwiat³a odbitego
+    // wspÃ³Â³czynniki ks =[ksr,ksg,ksb] dla Å“wiatÂ³a odbitego
 
     GLfloat mat_shininess = { 20.0 };
-    // wspó³czynnik n opisuj¹cy po³ysk powierzchni
+    // wspÃ³Â³czynnik n opisujÂ¹cy poÂ³ysk powierzchni
 
-// Definicja Ÿród³a œwiat³a
-    /////// œwiat³o ruchome myszk¹
+// Definicja Å¸rÃ³dÂ³a Å“wiatÂ³a
+    /////// Å“wiatÂ³o ruchome myszkÂ¹
     GLfloat light1_ambient[] = { 0.1, 0.1, 0.1, 1.0 };
-    // sk³adowe intensywnoœci œwiecenia Ÿród³a œwiat³a otoczenia
+    // skÂ³adowe intensywnoÅ“ci Å“wiecenia Å¸rÃ³dÂ³a Å“wiatÂ³a otoczenia
     // Ia = [Iar,Iag,Iab]
 
     GLfloat light1_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-    // sk³adowe intensywnoœci œwiecenia Ÿród³a œwiat³a powoduj¹cego
+    // skÂ³adowe intensywnoÅ“ci Å“wiecenia Å¸rÃ³dÂ³a Å“wiatÂ³a powodujÂ¹cego
     // odbicie dyfuzyjne Id = [Idr,Idg,Idb]
 
     GLfloat light1_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    // sk³adowe intensywnoœci œwiecenia Ÿród³a œwiat³a powoduj¹cego
+    // skÂ³adowe intensywnoÅ“ci Å“wiecenia Å¸rÃ³dÂ³a Å“wiatÂ³a powodujÂ¹cego
     // odbicie kierunkowe Is = [Isr,Isg,Isb]
     if (kolor == 0) {
         light1_diffuse[0] = 1.0;
@@ -545,25 +545,25 @@ void MyInit(void) {
     }
 
     GLfloat att1_constant = { 1.0 };
-    // sk³adowa sta³a ds dla modelu zmian oœwietlenia w funkcji
-    // odleg³oœci od Ÿród³a
+    // skÂ³adowa staÂ³a ds dla modelu zmian oÅ“wietlenia w funkcji
+    // odlegÂ³oÅ“ci od Å¸rÃ³dÂ³a
 
     GLfloat att1_linear = { 0.05 };
-    // sk³adowa liniowa dl dla modelu zmian oœwietlenia w funkcji
-    // odleg³oœci od Ÿród³a
+    // skÂ³adowa liniowa dl dla modelu zmian oÅ“wietlenia w funkcji
+    // odlegÂ³oÅ“ci od Å¸rÃ³dÂ³a
 
     GLfloat att1_quadratic = { 0.001 };
-    // sk³adowa kwadratowa dq dla modelu zmian oœwietlenia w funkcji
-    // odleg³oœci od Ÿród³a
+    // skÂ³adowa kwadratowa dq dla modelu zmian oÅ“wietlenia w funkcji
+    // odlegÂ³oÅ“ci od Å¸rÃ³dÂ³a
 
-    ///////////////////// swiatlo kr¹¿¹ce
+    ///////////////////// swiatlo krÂ¹Â¿Â¹ce
 
     GLfloat light2_specular[] = {1.0, 1.0, 1.0, 1.0};
-    // sk³adowe intensywnoœci œwiecenia Ÿród³a œwiat³a powoduj¹cego
+    // skÂ³adowe intensywnoÅ“ci Å“wiecenia Å¸rÃ³dÂ³a Å“wiatÂ³a powodujÂ¹cego
     // odbicie kierunkowe Is = [Isr,Isg,Isb]
 
     GLfloat light2_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-    // sk³adowe intensywnoœci œwiecenia Ÿród³a œwiat³a powoduj¹cego
+    // skÂ³adowe intensywnoÅ“ci Å“wiecenia Å¸rÃ³dÂ³a Å“wiatÂ³a powodujÂ¹cego
     // odbicie dyfuzyjne Id = [Idr,Idg,Idb]
 
     if (kolor2 == 0) {
@@ -589,51 +589,51 @@ void MyInit(void) {
     }
 
     GLfloat att2_constant = { 1.0 };
-    // sk³adowa sta³a ds dla modelu zmian oœwietlenia w funkcji
-    // odleg³oœci od Ÿród³a
+    // skÂ³adowa staÂ³a ds dla modelu zmian oÅ“wietlenia w funkcji
+    // odlegÂ³oÅ“ci od Å¸rÃ³dÂ³a
 
     GLfloat att2_linear = { 0.05 };
-    // sk³adowa liniowa dl dla modelu zmian oœwietlenia w funkcji
-    // odleg³oœci od Ÿród³a
+    // skÂ³adowa liniowa dl dla modelu zmian oÅ“wietlenia w funkcji
+    // odlegÂ³oÅ“ci od Å¸rÃ³dÂ³a
 
     GLfloat att2_quadratic = { 0.001 };
-    // sk³adowa kwadratowa dq dla modelu zmian oœwietlenia w funkcji
-    // odleg³oœci od Ÿród³a
+    // skÂ³adowa kwadratowa dq dla modelu zmian oÅ“wietlenia w funkcji
+    // odlegÂ³oÅ“ci od Å¸rÃ³dÂ³a
 
     GLfloat light_position[] = { 0.0, 10.0, 10.0, 1.0 };
-    // po³o¿enie Ÿród³a
+    // poÂ³oÂ¿enie Å¸rÃ³dÂ³a
 
     // swaitlo
     GLfloat light_ambient[] = { 0.1, 0.1, 0.1, 1.0 };
-    // sk³adowe intensywnoœci œwiecenia Ÿród³a œwiat³a otoczenia
+    // skÂ³adowe intensywnoÅ“ci Å“wiecenia Å¸rÃ³dÂ³a Å“wiatÂ³a otoczenia
     // Ia = [Iar,Iag,Iab]
 
-    //// œwiat³o sta³e
+    //// Å“wiatÂ³o staÂ³e
     GLfloat light_diffuse[] = { 0.5, 0.0, 0.0, 1.0 };
-    // sk³adowe intensywnoœci œwiecenia Ÿród³a œwiat³a powoduj¹cego
+    // skÂ³adowe intensywnoÅ“ci Å“wiecenia Å¸rÃ³dÂ³a Å“wiatÂ³a powodujÂ¹cego
     // odbicie dyfuzyjne Id = [Idr,Idg,Idb]
 
     GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    // sk³adowe intensywnoœci œwiecenia Ÿród³a œwiat³a powoduj¹cego
+    // skÂ³adowe intensywnoÅ“ci Å“wiecenia Å¸rÃ³dÂ³a Å“wiatÂ³a powodujÂ¹cego
     // odbicie kierunkowe Is = [Isr,Isg,Isb]
 
     GLfloat att_constant = { 1.0 };
-    // sk³adowa sta³a ds dla modelu zmian oœwietlenia w funkcji
-    // odleg³oœci od Ÿród³a
+    // skÂ³adowa staÂ³a ds dla modelu zmian oÅ“wietlenia w funkcji
+    // odlegÂ³oÅ“ci od Å¸rÃ³dÂ³a
 
     GLfloat att_linear = { 0.05 };
-    // sk³adowa liniowa dl dla modelu zmian oœwietlenia w funkcji
-    // odleg³oœci od Ÿród³a
+    // skÂ³adowa liniowa dl dla modelu zmian oÅ“wietlenia w funkcji
+    // odlegÂ³oÅ“ci od Å¸rÃ³dÂ³a
 
     GLfloat att_quadratic = { 0.001 };
-    // sk³adowa kwadratowa dq dla modelu zmian oœwietlenia w funkcji
-    // odleg³oœci od Ÿród³a
+    // skÂ³adowa kwadratowa dq dla modelu zmian oÅ“wietlenia w funkcji
+    // odlegÂ³oÅ“ci od Å¸rÃ³dÂ³a
 
 /********************************/
-// Ustawienie parametrów materia³u i Ÿród³a œwiat³a
+// Ustawienie parametrÃ³w materiaÂ³u i Å¸rÃ³dÂ³a Å“wiatÂ³a
 
 /*********************************/
-// Ustawienie patrametrów materia³u
+// Ustawienie patrametrÃ³w materiaÂ³u
 
 
     glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
@@ -643,7 +643,7 @@ void MyInit(void) {
 
 
     /****************************/
-    // Ustawienie parametrów Ÿród³a
+    // Ustawienie parametrÃ³w Å¸rÃ³dÂ³a
 
     glLightfv(GL_LIGHT0, GL_AMBIENT, light1_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light1_diffuse);
@@ -667,14 +667,14 @@ void MyInit(void) {
     glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, att_linear);
     glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, att_quadratic);
     /*************************************/
-    // Ustawienie opcji systemu oœwietlania sceny
+    // Ustawienie opcji systemu oÅ“wietlania sceny
 
-    glShadeModel(GL_SMOOTH);  // w³aczenie ³agodnego cieniowania
-    glEnable(GL_LIGHTING);   // w³aczenie systemu oœwietlenia sceny
-    glEnable(GL_LIGHT0);     // w³¹czenie Ÿród³a o numerze 0
-    glEnable(GL_LIGHT1);     // w³¹czenie Ÿród³a o numerze 1
-    glEnable(GL_LIGHT2);     // w³¹czenie Ÿród³a o numerze 2
-    glEnable(GL_DEPTH_TEST);  // w³¹czenie mechanizmu z-bufora
+    glShadeModel(GL_SMOOTH);  // wÂ³aczenie Â³agodnego cieniowania
+    glEnable(GL_LIGHTING);   // wÂ³aczenie systemu oÅ“wietlenia sceny
+    glEnable(GL_LIGHT0);     // wÂ³Â¹czenie Å¸rÃ³dÂ³a o numerze 0
+    glEnable(GL_LIGHT1);     // wÂ³Â¹czenie Å¸rÃ³dÂ³a o numerze 1
+    glEnable(GL_LIGHT2);     // wÂ³Â¹czenie Å¸rÃ³dÂ³a o numerze 2
+    glEnable(GL_DEPTH_TEST);  // wÂ³Â¹czenie mechanizmu z-bufora
 
 
     // teksturki
@@ -686,16 +686,16 @@ void MyInit(void) {
     glTexImage2D(GL_TEXTURE_2D, 0, ImComponents, ImWidth,
         ImHeight, 0, ImFormat, GL_UNSIGNED_BYTE, pBytes);
 
-    // Zwolnienie pamiêci
+    // Zwolnienie pamiÃªci
     free(pBytes);
 
-    // W³¹czenie mechanizmu teksturowania
+    // WÂ³Â¹czenie mechanizmu teksturowania
     glEnable(GL_TEXTURE_2D);
 
     // Ustalenie trybu teksturowania
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-    // Okreœlenie sposobu nak³adania tekstur
+    // OkreÅ“lenie sposobu nakÂ³adania tekstur
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_LINEAR);
@@ -704,10 +704,10 @@ void MyInit(void) {
 
 /**************************************/
 
-// Funkcja ma za zadanie utrzymanie sta³ych proporcji rysowanych
-// w przypadku zmiany rozmiarów okna.
-// Parametry vertical i horizontal (wysokoœæ i szerokoœæ okna) s¹
-// przekazywane do funkcji za ka¿dym razem gdy zmieni siê rozmiar okna.
+// Funkcja ma za zadanie utrzymanie staÂ³ych proporcji rysowanych
+// w przypadku zmiany rozmiarÃ³w okna.
+// Parametry vertical i horizontal (wysokoÅ“Ã¦ i szerokoÅ“Ã¦ okna) sÂ¹
+// przekazywane do funkcji za kaÂ¿dym razem gdy zmieni siÃª rozmiar okna.
 
 
 
@@ -719,12 +719,12 @@ void ChangeSize(GLsizei horizontal, GLsizei vertical) {
     pix2angle_pion = 360.0 / static_cast<float>(vertical);
 
     glMatrixMode(GL_PROJECTION);
-    // Prze³¹czenie macierzy bie¿¹cej na macierz projekcji
+    // PrzeÂ³Â¹czenie macierzy bieÂ¿Â¹cej na macierz projekcji
     glLoadIdentity();
-    // Czyszcznie macierzy bie¿¹cej
+    // Czyszcznie macierzy bieÂ¿Â¹cej
 
     gluPerspective(70, 1.0, 0.01, 200.0);
-    // Ustawienie parametrów dla rzutu perspektywicznego
+    // Ustawienie parametrÃ³w dla rzutu perspektywicznego
 
     if (horizontal <= vertical)
         glViewport(0, (vertical - horizontal) / 2, horizontal, horizontal);
@@ -733,15 +733,15 @@ void ChangeSize(GLsizei horizontal, GLsizei vertical) {
         glViewport((horizontal - vertical) / 2, 0, vertical, vertical);
 
     glMatrixMode(GL_MODELVIEW);
-    // Prze³¹czenie macierzy bie¿¹cej na macierz widoku modelu
+    // PrzeÂ³Â¹czenie macierzy bieÂ¿Â¹cej na macierz widoku modelu
 
     glLoadIdentity();
-    // Czyszcenie macierzy bie¿¹cej
+    // Czyszcenie macierzy bieÂ¿Â¹cej
 }
 
 /*********************/
 
-// G³ówny punkt wejœcia programu. Program dzia³a w trybie konsoli
+// GÂ³Ã³wny punkt wejÅ“cia programu. Program dziaÂ³a w trybie konsoli
 
 
 
@@ -750,27 +750,27 @@ int main(void) {
     // instrukcja przypisanych klawiszy
 
     std::cout << "  Obroty:" << std::endl;
-    std::cout << "      1 - wokó³ osi X" << std::endl;
-    std::cout << "      2 - wokó³ osi Y" << std::endl;
-    std::cout << "      0 - nie obraca siê" << std::endl;
+    std::cout << "      1 - wokÃ³Â³ osi X" << std::endl;
+    std::cout << "      2 - wokÃ³Â³ osi Y" << std::endl;
+    std::cout << "      0 - nie obraca siÃª" << std::endl;
     std::cout << "  Tekstury:" << std::endl;
-    std::cout << "      Q - je¿d¿¹cy dooko³a samochodzik" << std::endl;
+    std::cout << "      Q - jeÂ¿dÂ¿Â¹cy dookoÂ³a samochodzik" << std::endl;
     std::cout << "      W - D1_t.tga" << std::endl;
     std::cout << "      E - D2_t.tga" << std::endl;
     std::cout << "      R - D3_t.tga" << std::endl;
-    std::cout << "Podaj liczbê punktów chmury: ";
+    std::cout << "Podaj liczbÃª punktÃ³w chmury: ";
     int n;
     std::cin >> n;
     rozmiar = static_cast<int>(sqrt(n));
 
-    std::cout << std::endl << "0-bia³y, 1-czerwony";
-    std::cout << " 2-zielony, 3-niebieski, 4-¿ó³ty" << std::endl;
+    std::cout << std::endl << "0-biaÂ³y, 1-czerwony";
+    std::cout << " 2-zielony, 3-niebieski, 4-Â¿Ã³Â³ty" << std::endl;
 
     std::cout << "Podaj kolor swiatla sterowanego myszka: ";
     std::cin >> n;
     kolor = n;
 
-    std::cout << "Podaj kolor swiatla kr¹¿¹cego dooko³a jajka: ";
+    std::cout << "Podaj kolor swiatla krÂ¹Â¿Â¹cego dookoÂ³a jajka: ";
     std::cin >> n;
     kolor2 = n;
 
@@ -784,21 +784,21 @@ int main(void) {
     glutCreateWindow("Tekstury");
 
     glutDisplayFunc(RenderScene);
-    // Okreœlenie, ¿e funkcja RenderScene bêdzie funkcj¹ zwrotn¹
-    // (callback function).  Bedzie ona wywo³ywana za ka¿dym razem
+    // OkreÅ“lenie, Â¿e funkcja RenderScene bÃªdzie funkcjÂ¹ zwrotnÂ¹
+    // (callback function).  Bedzie ona wywoÂ³ywana za kaÂ¿dym razem
     // gdy zajdzie potrzba przeryswania okna
     glutReshapeFunc(ChangeSize);
-    // Dla aktualnego okna ustala funkcjê zwrotn¹ odpowiedzialn¹
+    // Dla aktualnego okna ustala funkcjÃª zwrotnÂ¹ odpowiedzialnÂ¹
     // zazmiany rozmiaru okna
 
     glutMouseFunc(Mouse);
     glutMotionFunc(Motion);
 
     MyInit();
-    // Funkcja MyInit() (zdefiniowana powy¿ej) wykonuje wszelkie
-    // inicjalizacje konieczne  przed przyst¹pieniem do renderowania
+    // Funkcja MyInit() (zdefiniowana powyÂ¿ej) wykonuje wszelkie
+    // inicjalizacje konieczne  przed przystÂ¹pieniem do renderowania
     glEnable(GL_DEPTH_TEST);
-    // W³¹czenie mechanizmu usuwania powierzchni niewidocznych
+    // WÂ³Â¹czenie mechanizmu usuwania powierzchni niewidocznych
 
     glutKeyboardFunc(keys);
 
