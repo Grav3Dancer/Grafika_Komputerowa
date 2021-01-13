@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>248827 Uk³ad S³oneczny</title>
+    <style>
+      html, body 
+      {
+          background-color : #ffffff;
+          margin: 0;
+          padding: 0;
+          overflow: hidden; 
+      }
+    </style>
+  </head>
+  <body>
+      <p>&nbsp; Lewa strza³ka zatrzymuje obroty, prawa je wznawia. Lewy przycisk obraca kamerê, prawy zmienia jej pozycjê, kó³ko myszy odpowiada za zoom.</p>
+      <script src="three.min.js"></script>
+      <script src="OrbitControls.js"></script>
+      <script>
+          // Javascript will go here.
+          var camera, scene, renderer;
+          var geometry, ringGeometry;
+          var controls;
+
+
+          // zmienne materialow, siatek, tekstur, grup dla slonca i planet
+          var sunMaterial, mercuryMaterial, venusMaterial, earthMaterial, moonMaterial, marsMaterial, jupiterMaterial, saturnMaterial, uranusMaterial, neptunMaterial, plutoMaterial, ringMaterial;
+          var sunMesh, mercuryMesh, venusMesh, earthMesh, moonMesh, marsMesh, jupiterMesh, saturnMesh, uranusMesh, neptunMesh, plutoMesh, ringMesh;
+          var sunMap, mercuryMap, venusMap, earthMap, moonMap, marsMap, jupiterMap, saturnMap, uranusMap, neptunMap, plutoMap, ringMap;
+          var mercuryGroup, venusGroup, earthGroup, moonGroup, marsGroup, jupiterGroup, saturnGroup, uranusGroup, neptunGroup, plutoGroup;
+
+          var spaceBg;
+          var spaceMaterial, spaceMesh;
+
+          function addPlanet(scene, mesh, group, pos, scale) {
+              mesh.position.set(pos, 0, 0);
+              mesh.scale.setScalar(scale);
+              group.add(mesh);
+              scene.add(group);
+          }
+
+          function setup() {
+
+              var W = window.innerWidth, H = window.innerHeight;
+              renderer = new THREE.WebGLRenderer();
+              renderer.setSize(W, H);
+              document.body.appendChild(renderer.domElement);
+
+              camera = new THREE.PerspectiveCamera(50, W / H, 1, 100000);
+              camera.position.set(30, 0, 200);
+
+              scene = new THREE.Scene();
+
+              controls = new THREE.OrbitControls(camera, renderer.domElement);
+              controls.maxDistance = 3000;
+
+              // paste your code from the geometryGUI here
+              geometry = new THREE.SphereGeometry(1, 100, 100);
+              ringGeometry = new THREE.RingGeometry(30, 22, 200, 20, 2, 6.29);
+
+              //tekstury
+              spaceBg = THREE.ImageUtils.loadTexture("tekstury/space.jpg", renderer.render(scene, camera));
+              //spaceBg.wrapS = spaceBg.wrapT = THREE.RepeatWrapping;
+              spaceBg.repeat.set(1, 1);
+
+
+
+              sunMap = THREE.ImageUtils.loadTexture("tekstury/slonce.jpg", renderer.render(scene, camera));
+              sunMap.wrapS = sunMap.wrapT = THREE.RepeatWrapping;
+              sunMap.repeat.set(1, 1);
+
+              mercuryMap = THREE.ImageUtils.loadTexture("tekstury/merkury.jpg", renderer.render(scene, camera));
+              mercuryMap.wrapS = mercuryMap.wrapT = THREE.RepeatWrapping;
+              mercuryMap.repeat.set(1, 1);
+
+              venusMap = THREE.ImageUtils.loadTexture("tekstury/wenus.jpg", renderer.render(scene, camera));
+              venusMap.wrapS = venusMap.wrapT = THREE.RepeatWrapping;
+              venusMap.repeat.set(1, 1);
+
+              earthMap = THREE.ImageUtils.loadTexture("tekstury/ziemia.jpg", renderer.render(scene, camera));
+              earthMap.wrapS = earthMap.wrapT = THREE.RepeatWrapping;
+              earthMap.repeat.set(1, 1);
+
+              moonMap = THREE.ImageUtils.loadTexture("tekstury/ksiezyc.jpg", renderer.render(scene, camera));
+              moonMap.wrapS = moonMap.wrapT = THREE.RepeatWrapping;
+              moonMap.repeat.set(1, 1);
+
+              marsMap = THREE.ImageUtils.loadTexture("tekstury/mars.jpg", renderer.render(scene, camera));
+              marsMap.wrapS = marsMap.wrapT = THREE.RepeatWrapping;
+              marsMap.repeat.set(1, 1);
+
+              jupiterMap = THREE.ImageUtils.loadTexture("tekstury/jowisz.jpg", renderer.render(scene, camera));
+              jupiterMap.wrapS = jupiterMap.wrapT = THREE.RepeatWrapping;
+              jupiterMap.repeat.set(1, 1);
+
+              saturnMap = THREE.ImageUtils.loadTexture("tekstury/saturn.jpg", renderer.render(scene, camera));
+              saturnMap.wrapS = saturnMap.wrapT = THREE.RepeatWrapping;
+              saturnMap.repeat.set(1, 1);
+
+              ringMap = THREE.ImageUtils.loadTexture("tekstury/slonce.jpg", renderer.render(scene, camera));
+              ringMap.wrapS = ringMap.wrapT = THREE.RepeatWrapping;
+              ringMap.repeat.set(2, 2);
+
+              uranusMap = THREE.ImageUtils.loadTexture("tekstury/uran.jpg", renderer.render(scene, camera));
+              uranusMap.wrapS = uranusMap.wrapT = THREE.RepeatWrapping;
+              uranusMap.repeat.set(1, 1);
+
+              neptunMap = THREE.ImageUtils.loadTexture("tekstury/neptun.jpg", renderer.render(scene, camera));
+              neptunMap.wrapS = neptunMap.wrapT = THREE.RepeatWrapping;
+              neptunMap.repeat.set(1, 1);
+
+              plutoMap = THREE.ImageUtils.loadTexture("tekstury/pluton.jpg", renderer.render(scene, camera));
+              plutoMap.wrapS = plutoMap.wrapT = THREE.RepeatWrapping;
+              plutoMap.repeat.set(1, 1);
+
+
+
+
+
+              // tworzenie i dodawanie planet
+              spaceMaterial = new THREE.MeshBasicMaterial({ shading: THREE.SmoothShading, color: 0xaaaaaa, map: spaceBg });
+              spaceMesh = new THREE.Mesh(geometry, spaceMaterial);
+              spaceMesh.position.set(0, 0, 0);
+              spaceMesh.scale.setScalar(8000);
+              spaceMesh.material.side = THREE.BackSide;
+              scene.add(spaceMesh);
+
+              //sunMaterial = new THREE.MeshPhongMaterial({ shading: THREE.SmoothShading, color: 0xaaaaaa, ambient: 0xffffff, emissive: 0x000000, specular: 0x000000, shininess: 10, map: sunMap });
+              sunMaterial = new THREE.MeshStandardMaterial({ map: sunMap });
+              sunMesh = new THREE.Mesh(geometry, sunMaterial);
+              sunMesh.position.set(0, 0, 0);
+              sunMesh.scale.setScalar(30);
+              scene.add(sunMesh);
+
+              mercuryMaterial = new THREE.MeshPhongMaterial({ shading: THREE.SmoothShading, color: 0xaaaaaa, ambient: 0xffffff, emissive: 0x000000, specular: 0x000000, shininess: 10, map: mercuryMap });
+              mercuryMesh = new THREE.Mesh(geometry, mercuryMaterial);
+              mercuryGroup = new THREE.Group();
+              addPlanet(scene, mercuryMesh, mercuryGroup, 80, 0.4);
+
+              venusMaterial = new THREE.MeshPhongMaterial({ shading: THREE.SmoothShading, color: 0xaaaaaa, ambient: 0xffffff, emissive: 0x000000, specular: 0x000000, shininess: 10, map: venusMap });
+              venusMesh = new THREE.Mesh(geometry, venusMaterial);
+              venusGroup = new THREE.Group();
+              addPlanet(scene, venusMesh, venusGroup, 140, 0.95);
+
+              earthMaterial = new THREE.MeshPhongMaterial({ shading: THREE.SmoothShading, color: 0xaaaaaa, ambient: 0xffffff, emissive: 0x000000, specular: 0x000000, shininess: 10, map: earthMap });
+              earthMesh = new THREE.Mesh(geometry, earthMaterial);
+              ////
+              moonMaterial = new THREE.MeshPhongMaterial({ shading: THREE.SmoothShading, color: 0xaaaaaa, ambient: 0xffffff, emissive: 0x000000, specular: 0x000000, shininess: 10, map: moonMap });
+              moonMesh = new THREE.Mesh(geometry, moonMaterial);
+              moonMesh.position.x = 5;
+              moonMesh.scale.setScalar(0.27);
+              ////
+              earthMesh.add(moonMesh)
+              earthGroup = new THREE.Group();
+              addPlanet(scene, earthMesh, earthGroup, 190, 1);
+
+              marsMaterial = new THREE.MeshPhongMaterial({ shading: THREE.SmoothShading, color: 0xaaaaaa, ambient: 0xffffff, emissive: 0x000000, specular: 0x000000, shininess: 10, map: marsMap });
+              marsMesh = new THREE.Mesh(geometry, marsMaterial);
+              marsGroup = new THREE.Group();
+              addPlanet(scene, marsMesh, marsGroup, 270, 0.54);
+
+              jupiterMaterial = new THREE.MeshPhongMaterial({ shading: THREE.SmoothShading, color: 0xaaaaaa, ambient: 0xffffff, emissive: 0x000000, specular: 0x000000, shininess: 10, map: jupiterMap });
+              jupiterMesh = new THREE.Mesh(geometry, jupiterMaterial);
+              jupiterGroup = new THREE.Group();
+              addPlanet(scene, jupiterMesh, jupiterGroup, 400, 11);
+
+              saturnMaterial = new THREE.MeshPhongMaterial({ shading: THREE.SmoothShading, color: 0xaaaaaa, ambient: 0xffffff, emissive: 0x000000, specular: 0x000000, shininess: 10, map: saturnMap });
+              saturnMesh = new THREE.Mesh(geometry, saturnMaterial);
+              ////
+              ringMaterial = new THREE.MeshPhongMaterial({ shading: THREE.SmoothShading, color: 0xaaaaaa, ambient: 0xffffff, emissive: 0x000000, specular: 0x000000, shininess: 10, map: ringMap});
+              ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
+              ringMesh.rotation.x = 1.5;
+              ringMesh.rotation.y = 0.5;
+              ringMesh.material.side = THREE.DoubleSide;
+              ////
+              saturnGroup = new THREE.Group();
+              addPlanet(scene, saturnMesh, saturnGroup, 600, 9.5);
+              addPlanet(scene, ringMesh, saturnGroup, 600, 0.475);
+
+              uranusMaterial = new THREE.MeshPhongMaterial({ shading: THREE.SmoothShading, color: 0xaaaaaa, ambient: 0xffffff, emissive: 0x000000, specular: 0x000000, shininess: 10, map: uranusMap });
+              uranusMesh = new THREE.Mesh(geometry, uranusMaterial);
+              uranusGroup = new THREE.Group();
+              addPlanet(scene, uranusMesh, uranusGroup, 800, 4);
+
+              neptunMaterial = new THREE.MeshPhongMaterial({ shading: THREE.SmoothShading, color: 0xaaaaaa, ambient: 0xffffff, emissive: 0x000000, specular: 0x000000, shininess: 10, map: neptunMap });
+              neptunMesh = new THREE.Mesh(geometry, neptunMaterial);
+              neptunGroup = new THREE.Group();
+              addPlanet(scene, neptunMesh, neptunGroup, 1000, 3.8);
+
+              plutoMaterial = new THREE.MeshPhongMaterial({ shading: THREE.SmoothShading, color: 0xaaaaaa, ambient: 0xffffff, emissive: 0x000000, specular: 0x000000, shininess: 10, map: plutoMap });
+              plutoMesh = new THREE.Mesh(geometry, plutoMaterial);
+              plutoGroup = new THREE.Group();
+              addPlanet(scene, plutoMesh, plutoGroup, 1400, 1.5);
+
+
+              var ambientLight = new THREE.AmbientLight(0x3c3333);
+              scene.add(ambientLight);
+
+              var sunLight = new THREE.PointLight(0xffffff, 1.5);
+              sunLight.position.set(0, 0, 0);
+              scene.add(sunLight);
+
+              
+
+
+              var sunLight1 = new THREE.PointLight(0xffffff, 2, 75);
+              sunLight1.position.set(75, 0, 0);
+              scene.add(sunLight1);
+              var sunLight2 = new THREE.PointLight(0xffffff, 2, 75);
+              sunLight2.position.set(-75, 0, 0);
+              scene.add(sunLight2);
+              var sunLight3 = new THREE.PointLight(0xffffff, 2, 75);
+              sunLight3.position.set(0, 0, 75);
+              scene.add(sunLight3);
+              var sunLight4 = new THREE.PointLight(0xffffff, 2, 75);
+              sunLight4.position.set(0, 0, -75);
+              scene.add(sunLight4);
+              var sunLight5 = new THREE.PointLight(0xffffff, 2, 75);
+              sunLight5.position.set(0, 75, 0);
+              scene.add(sunLight5);
+              var sunLight6 = new THREE.PointLight(0xffffff, 2, 75);
+              sunLight6.position.set(0, -75, 0);
+              scene.add(sunLight6);
+
+
+          }
+
+          var rotate;
+          rotate = true;
+          var timeStop, stopDur;
+          function setupKeyControls()
+          {
+              document.onkeydown = function (e)
+              {
+                  switch (e.keyCode)
+                  {
+                      case 37:
+                          rotate = false;
+                          timeStop = Date.now();
+                          break;
+                      case 39:
+                          rotate = true;
+                          time0 += stopDur;
+                          stopDur = 0;
+                          break;
+                  }
+              }
+          }
+
+          var time0 = Date.now();
+          var time;
+
+          function draw() {
+
+              requestAnimationFrame(draw);
+              setupKeyControls();
+              // experiment with code from the snippets menu here
+              if (rotate) {
+                  time = Date.now() - time0;
+
+                  sunMesh.rotation.y = time * 0.0001;
+
+                  mercuryMesh.rotation.y = time * 0.00004;
+                  mercuryGroup.rotation.y = time * 0.0006;
+
+                  venusMesh.rotation.y = time * 0.00001;
+                  venusGroup.rotation.y = time * 0.00025;
+
+                  earthMesh.rotation.y = time * 0.002;
+                  earthGroup.rotation.y = time * 0.00015;
+                  earthMesh.rotation.x = 0.5;
+
+
+                  marsMesh.rotation.y = time * 0.002;
+                  marsGroup.rotation.y = time * 0.00008;
+
+                  jupiterMesh.rotation.y = time * 0.004;
+                  jupiterGroup.rotation.y = time * 0.00004;
+
+                  saturnMesh.rotation.y = time * 0.004;
+                  saturnGroup.rotation.y = time * 0.00003;
+
+
+                  uranusMesh.rotation.y = time * 0.003;
+                  uranusGroup.rotation.y = time * 0.00002;
+
+
+                  neptunMesh.rotation.y = time * 0.003;
+                  neptunGroup.rotation.y = time * 0.00001;
+
+                  plutoMesh.rotation.y = time * 0.0003;
+                  plutoGroup.rotation.y = time * 0.000005;
+              }
+              else
+              {
+                  stopDur = Date.now() - timeStop;
+              }
+
+              controls.update();
+
+              renderer.render(scene, camera);
+
+          }
+
+          setup();
+          draw();
+
+
+
+      </script>
+  </body>
+</html>
